@@ -81,9 +81,9 @@ AddDefaultCharset utf-8
 
 
     # JavaScript
-    ExpiresByType application/javascript                "access plus 1 year"
-    ExpiresByType application/x-javascript              "access plus 1 year"
-    ExpiresByType text/javascript                       "access plus 1 year"
+    ExpiresByType application/javascript                "access plus 2 hours"
+    ExpiresByType application/x-javascript              "access plus 2 hours"
+    ExpiresByType text/javascript                       "access plus 2 hours"
 
     # Manifest files
     ExpiresByType application/manifest+json             "access plus 1 week"
@@ -197,6 +197,7 @@ AddDefaultCharset utf-8
     ExpiresByType text/html "access 1 month"
     ExpiresByType image/svg+xml "access 1 month"
     ExpiresByType application/pdf "access 1 month"
+    ExpiresByType application/javascript "access 2 hours"
     ExpiresByType text/x-javascript "access 1 month"
     ExpiresByType application/x-shockwave-flash "access 1 month"
     ExpiresByType image/x-icon "access 1 year"
