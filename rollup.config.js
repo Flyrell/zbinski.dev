@@ -17,6 +17,10 @@ export default {
 		file: 'public/bundle.[hash].js'
 	},
 	plugins: [
+        production && del({
+            targets: ['public/bundle*.js','public/bundle*.css'],
+            verbose: true
+        }),
 	    production && html({
             template: 'src/index.html',
             dest: 'public',
