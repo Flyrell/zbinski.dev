@@ -25,14 +25,7 @@
             href: 'https://www.facebook.com/dawid.zbinski'
         },
     ];
-    const title = 'Dawid Zbiński // Developer by default';
-    const description = `
-        My name is Dawid and I'm a Web Developer.
-        I work mainly with JavaScript/TypeScript/PHP/Bash check out my social media or contact me!
-    `;
-    function getFullImageSrc(src) {
-      return '/assets/images/' + src;
-    }
+    const getFullImageSrc = (src) => '/assets/images/' + src;
 
 </script>
 
@@ -74,20 +67,4 @@
 
 
 <svelte:head>
-    <!-- Basics -->
-    <title>Dawid Zbiński // Developer by default</title>
-    <meta name="description" content={description} />
-
-    <!-- Twitter Card data -->
-    <meta name="twitter:title" content={title}>
-    <meta name="twitter:description" content={description}>
-
-    <!-- Open Graph data -->
-    <meta property="og:title" content={title} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="" />
-    <meta property="og:description" content={description} />
-    <meta property="og:site_name" content={title} />
-    <meta property="fb:admins" content="100000585915135" />
-    <meta property="og:image" content="https://zbinski.dev/assets/images/og-image.jpg" />
 </svelte:head>
