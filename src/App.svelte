@@ -64,7 +64,3 @@
          </a>
     {/each}
 </main>
-
-
-<svelte:head>
-</svelte:head>
