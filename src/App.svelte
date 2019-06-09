@@ -25,14 +25,16 @@
             href: 'https://www.facebook.com/dawid.zbinski'
         },
     ];
+    const homePageUrl = 'https://zbinski.dev';
     const title = 'Dawid Zbiński // Developer by default';
     const description = `
         My name is Dawid and I'm a Web Developer.
         I work mainly with JavaScript/TypeScript/PHP/Bash check out my social media or contact me!
     `;
-    function getFullImageSrc(src) {
-      return '/assets/images/' + src
+    function getFullImageSrc(src, withHost = false) {
+      return (withHost ? homePageUrl : '') + '/assets/images/' + src
     }
+
 </script>
 
 <style>
@@ -84,9 +86,9 @@
     <!-- Open Graph data -->
     <meta property="og:title" content={title} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://zbinski.dev/" />
+    <meta property="og:url" content="" />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={title} />
     <meta property="fb:admins" content="100000585915135" />
-    <meta property="og:image" content="{getFullImageSrc('og-image.jpg')}" />
+    <meta property="og:image" content={getFullImageSrc('og-image.jpg', true)} />
 </svelte:head>
