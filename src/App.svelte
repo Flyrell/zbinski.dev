@@ -30,8 +30,8 @@
         My name is Dawid and I'm a Web Developer.
         I work mainly with JavaScript/TypeScript/PHP/Bash check out my social media or contact me!
     `;
-    function getFullImageSrc(icon) {
-      return '/assets/images/' + icon.src
+    function getFullImageSrc(src) {
+      return '/assets/images/' + src
     }
 </script>
 
@@ -66,7 +66,7 @@
 <main class="icons">
     {#each icons as icon}
         <a href={icon.href} target="_blank" rel="noreferrer">
-            <img class="icon {icon.className}" alt={icon.alt} src={getFullImageSrc(icon)}>
+            <img class="icon {icon.className}" alt={icon.alt} src={getFullImageSrc(icon.src)}>
          </a>
     {/each}
 </main>
