@@ -46,7 +46,16 @@ $version = '1.0.0';
         'ad_storage': 'denied',
         'ad_user_data': 'denied',
         'ad_personalization': 'denied',
-        'wait_for_update': 500
+        'wait_for_update': 500,
+        'region': ['AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI',
+                   'FR','GR','HR','HU','IE','IT','LT','LU','LV','MT',
+                   'NL','PL','PT','RO','SE','SI','SK','IS','LI','NO']
+    });
+    gtag('consent', 'default', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
     });
     </script>
 
