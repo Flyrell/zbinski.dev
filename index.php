@@ -1,6 +1,6 @@
 <?php
 
-$version = '1.0.0';
+$version = '1.1.0';
 
 ?>
 
@@ -135,6 +135,8 @@ $version = '1.0.0';
                        aria-label="LinkedIn profile">LinkedIn</a>
                     <a href="https://x.com/davezbinski" target="_blank" rel="noopener noreferrer"
                        aria-label="X profile">X</a>
+                    <a href="https://buymeacoffee.com/dawidzbinski" target="_blank" rel="noopener noreferrer"
+                       aria-label="Buy me a Coffee">Buy me a Coffee</a>
                 </div>
             </header>
 
@@ -314,6 +316,12 @@ $version = '1.0.0';
             <p class="screen-subtitle">Open source achievements unlocked</p>
             <div class="credits-grid">
                 <article class="credit-card">
+                    <h3>hourgit</h3>
+                    <p>Git-integrated time tracking for developers. Automatic work-hour attribution from branch checkouts and reflog analysis — no timers, no manual input. Just code.</p>
+                    <a href="https://github.com/Flyrell/hourgit" target="_blank" rel="noopener noreferrer"
+                       class="credit-link">View on GitHub &rarr;</a>
+                </article>
+                <article class="credit-card">
                     <h3>axios-auth-refresh</h3>
                     <p>Automatic token-refresh plugin for Axios. Intercepts 401 responses, queues failed requests,
                         refreshes OAuth tokens, and retries them seamlessly.</p>
@@ -356,15 +364,6 @@ $version = '1.0.0';
                     </div>
                     <span class="loading-label">Almost Beta — 65%</span>
                 </article>
-                <article class="upcoming-card">
-                    <h3>Hour Git</h3>
-                    <p>Automatic time-tracking powered by git analysis. Parses commit history, branch activity, and work
-                        patterns to generate accurate timesheets — no manual input needed.</p>
-                    <div class="loading-bar" aria-label="Development progress">
-                        <div class="loading-fill" style="--progress: 20%"></div>
-                    </div>
-                    <span class="loading-label">Early Development — 20%</span>
-                </article>
             </div>
         </div>
     </section>
@@ -376,6 +375,19 @@ $version = '1.0.0';
                 <span aria-hidden="true">&#9664;</span> Back
             </button>
             <h2 class="screen-title">Blog</h2>
+            <article class="blog-post">
+                <h3 class="blog-post-title">Building hourgit: From Post-checkout Hooks to Reflog Parsing</h3>
+                <time class="blog-date" datetime="2026-03-03">March 3, 2026</time>
+                <div class="blog-body">
+                    <p>Like many devs, I forget to log daily activities. End of the month comes and I'm scratching my head trying to remember what I worked on three Tuesdays ago. It started as a simple branch-tracking tool — just to remember what I was doing each day. Then I realized: why not keep all hours logged locally in a git-like format and export them at the end of each month?</p>
+                    <p>My first approach was post-checkout hooks with custom commits. Every time you switched branches, a hook would fire and create a tracking commit. Seemed clever until I learned post-checkout hooks are unreliable — they don't fire on all checkouts, can be skipped entirely, and conflict with other hooks people already have set up. Dead end.</p>
+                    <p>Then it hit me: git reflog already records every checkout. Every single one. The data was always there — I just needed to parse it. The pivot to reflog parsing changed everything. More reliable, zero setup friction, no hook conflicts. You install hourgit, and it works with your existing repos immediately.</p>
+                    <p>The current trade-off is memory. I haven't found the optimal fs reading approach yet, so all entries load into memory. But I benchmarked it and ~10,000 entries come out to roughly 200KB with the fs read taking about 0.3–0.5s. Good enough for now. I'll optimize when it actually becomes a problem.</p>
+                    <p>What it can do today: automatic time attribution from checkouts, manual logging for meetings and standups, interactive reports with inline editing (vim-like hjkl navigation), multi-project support with per-project schedules (including rrules), PDF export, shell completions, and full cross-platform support.</p>
+                    <p>What's next: rounding logged time to configurable intervals, using commits between checkouts as time block descriptions for better context, and export integrations to Jira, Tempo, and Clockify.</p>
+                    <p>It's free, GPLv3. Check it out on <a href="https://github.com/Flyrell/hourgit" target="_blank" rel="noopener noreferrer">GitHub</a> or visit <a href="https://hourgit.com" target="_blank" rel="noopener noreferrer">hourgit.com</a>.</p>
+                </div>
+            </article>
             <article class="blog-post">
                 <h3 class="blog-post-title">Why I Still Build Without Frameworks</h3>
                 <time class="blog-date" datetime="2026-01-15">January 15, 2026</time>
