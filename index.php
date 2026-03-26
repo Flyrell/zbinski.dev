@@ -388,29 +388,6 @@ $version = '1.1.0';
                     <p>It's free, GPLv3. Check it out on <a href="https://github.com/Flyrell/hourgit" target="_blank" rel="noopener noreferrer">GitHub</a> or visit <a href="https://hourgit.com" target="_blank" rel="noopener noreferrer">hourgit.com</a>.</p>
                 </div>
             </article>
-            <article class="blog-post">
-                <h3 class="blog-post-title">Why I Still Build Without Frameworks</h3>
-                <time class="blog-date" datetime="2026-01-15">January 15, 2026</time>
-                <div class="blog-body">
-                    <p>Every few months someone asks me why this portfolio isn't built with React, Next, Astro, or
-                        whatever the current darling is. The answer is embarrassingly simple: I don't need one.</p>
-                    <p>A framework is a trade. You get structure, conventions, and ecosystem in exchange for weight,
-                        opinions, and update anxiety. For a marketing site, a portfolio, or anything where the "app" is
-                        really just a document with some flair — that trade is upside down.</p>
-                    <p>Vanilla HTML, CSS, and JS have gotten shockingly good. CSS custom properties replace most of what
-                        Sass gave us. The Web Animations API covers what jQuery once did. ES modules mean you can
-                        organize code without Webpack. And the browser's built-in component model (<code>&lt;template&gt;</code>,
-                        <code>&lt;slot&gt;</code>, custom elements) handles composition for anything more complex.</p>
-                    <p>The result? This site loads in under 50KB. There's no hydration step. No client-side router
-                        fighting the browser. No node_modules. It works with JavaScript disabled (mostly). And when I
-                        come back to it in two years, there's nothing to update — no breaking changes, no deprecated
-                        APIs, no abandoned plugins.</p>
-                    <p>I'm not anti-framework. I use them at work every day. But reaching for one by default, before
-                        you've felt the actual pain it solves, is cargo culting. Build the simplest thing that works.
-                        Add complexity only when you've earned the need for it.</p>
-                    <p>The web platform is the framework. Everything else is optional.</p>
-                </div>
-            </article>
         </div>
     </section>
 </div>

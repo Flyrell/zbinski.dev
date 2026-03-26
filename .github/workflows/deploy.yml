@@ -1,0 +1,20 @@
+name: Deploy to hosting
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Deploy via SFTP
+        run: |
+          lftp -u "${{ secrets.SFTP_USERNAME }},${{ secrets.SFTP_PASSWORD }}" \
+            -p ${{ secrets.SFTP_PORT }} \
+            -e "set cmd:verbose yes; set net:timeout 10; set sftp:auto-confirm yes; put index.php; put script.js; put style.css; put favicon.png; mirror -R assets assets; quit" \
+            sftp://${{ secrets.SFTP_HOST }}
