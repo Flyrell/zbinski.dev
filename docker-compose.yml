@@ -4,6 +4,4 @@ services:
       context: .
       args:
         VERSION: "1.1.0"
-    ports:
-      - "80:80"
     restart: unless-stopped
