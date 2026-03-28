@@ -8,11 +8,13 @@ Personal portfolio website for Dawid Zbinski (zbinski.dev) with a funny, interac
 
 ## Development
 
-Open `index.html` directly in a browser or use any static file server:
+Run locally with Docker:
 
 ```bash
-python3 -m http.server 8000
+docker compose up --build
 ```
+
+Or open `index.html` directly in a browser (version placeholders won't be replaced).
 
 ## Core Principles
 

@@ -1,0 +1,10 @@
+.git
+.github
+.gitignore
+.idea
+.DS_Store
+.claude
+CLAUDE.md
+Dockerfile
+docker-compose.yml
+.dockerignore
