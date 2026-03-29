@@ -11,7 +11,8 @@ Personal portfolio website for Dawid Zbinski (zbinski.dev) with a funny, interac
 Run locally with Docker:
 
 ```bash
-docker compose up --build
+docker build -t zbinski-dev .
+docker run -p 8080:80 zbinski-dev
 ```
 
 Or open `index.html` directly in a browser (version placeholders won't be replaced).
