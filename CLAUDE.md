@@ -8,12 +8,16 @@ Personal portfolio website for Dawid Zbinski (zbinski.dev) with a funny, interac
 
 ## Development
 
-Run locally with Docker:
+Run locally with [Task](https://taskfile.dev) and Docker:
 
 ```bash
-docker build -t zbinski-dev .
-docker run -p 8080:80 zbinski-dev
+task project:start    # nginx on http://localhost:8080, edits show up on refresh (bind mount)
+task project:preview  # build the production image like the release does and serve it
+task project:stop     # stop whichever of the two is running
 ```
+
+`PORT=3000 task project:start` changes the port; `VERSION=1.2.3 task project:preview` sets the version stamp.
+In `project:start` the `__VERSION__` placeholders stay literal, only `project:preview` replaces them.
 
 Or open `index.html` directly in a browser (version placeholders won't be replaced).
 

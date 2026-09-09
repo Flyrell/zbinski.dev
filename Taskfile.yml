@@ -1,0 +1,32 @@
+version: '3'
+
+vars:
+  CONTAINER: zbinski-dev
+  IMAGE: zbinski-dev
+  PORT: '{{.PORT | default "8080"}}'
+  VERSION: '{{.VERSION | default "dev"}}'
+
+tasks:
+  project:start:
+    desc: Serve the site on http://localhost:{{.PORT}} with live file edits (bind mount, no rebuild).
+    cmds:
+      - task: project:stop
+      - >-
+        docker run -d --rm --name {{.CONTAINER}}
+        -p {{.PORT}}:80
+        -v {{.ROOT_DIR}}:/usr/share/nginx/html:ro
+        nginx:alpine
+      - echo "http://localhost:{{.PORT}}"
+
+  project:stop:
+    desc: Stop the running container, whichever task started it.
+    cmds:
+      - docker rm -f {{.CONTAINER}} >/dev/null 2>&1 || true
+
+  project:preview:
+    desc: Build the production image exactly like the release does and serve it on http://localhost:{{.PORT}}.
+    cmds:
+      - task: project:stop
+      - docker build --build-arg VERSION={{.VERSION}} -t {{.IMAGE}} .
+      - docker run -d --rm --name {{.CONTAINER}} -p {{.PORT}}:80 {{.IMAGE}}
+      - echo "http://localhost:{{.PORT}}"

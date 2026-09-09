@@ -571,6 +571,13 @@ kbd {
   margin-right: 6px;
 }
 
+.quest-link {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+}
+
 /* ===== TIMELINE (Multiplayer) ===== */
 .timeline {
   position: relative;
@@ -663,6 +670,7 @@ kbd {
 .screen.active .credit-card:nth-child(2) { animation-delay: 0.25s; }
 .screen.active .credit-card:nth-child(3) { animation-delay: 0.4s; }
 .screen.active .credit-card:nth-child(4) { animation-delay: 0.55s; }
+.screen.active .credit-card:nth-child(5) { animation-delay: 0.7s; }
 
 @keyframes credit-fade-up {
   to {

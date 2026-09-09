@@ -211,11 +211,16 @@
                     <span class="quest-tag">WebGL</span>
                 </article>
                 <article class="quest-card">
-                    <h3>Paywalled REST API Framework</h3>
-                    <p>Node.js + Express framework for building paywalled APIs. Handles authentication, subscription
-                        tiers, rate limiting, and automated billing integration.</p>
-                    <span class="quest-tag">Node.js</span>
-                    <span class="quest-tag">Express</span>
+                    <h3>Maffia</h3>
+                    <p>The party game of Mafia with no game master. One room, one phone each &mdash; the app deals the
+                        roles in secret and every phone speaks the same narration at once, so nothing gives you away.
+                        Peer-to-peer over WebRTC with a Go signaling server and a React Native client, live on the App
+                        Store and Google Play.</p>
+                    <span class="quest-tag">Golang</span>
+                    <span class="quest-tag">React Native</span>
+                    <span class="quest-tag">WebRTC</span>
+                    <a href="https://maffia.app" target="_blank" rel="noopener noreferrer" class="quest-link">Visit
+                        maffia.app &rarr;</a>
                 </article>
             </div>
         </div>
@@ -310,6 +315,14 @@
             <p class="screen-subtitle">Open source achievements unlocked</p>
             <div class="credits-grid">
                 <article class="credit-card">
+                    <h3>shortr</h3>
+                    <p>Self-hosted URL shortener and QR code generator in one ~15 MB container. No accounts, no
+                        tracking, no ads &mdash; every link expires. Memory, file or Redis storage behind a single
+                        adapter interface. Go + a plain TypeScript client.</p>
+                    <a href="https://github.com/Flyrell/shortr" target="_blank" rel="noopener noreferrer"
+                       class="credit-link">View on GitHub &rarr;</a>
+                </article>
+                <article class="credit-card">
                     <h3>hourgit</h3>
                     <p>Git-integrated time tracking for developers. Automatic work-hour attribution from branch checkouts and reflog analysis — no timers, no manual input. Just code.</p>
                     <a href="https://github.com/Flyrell/hourgit" target="_blank" rel="noopener noreferrer"
@@ -369,6 +382,21 @@
                 <span aria-hidden="true">&#9664;</span> Back
             </button>
             <h2 class="screen-title">Blog</h2>
+            <article class="blog-post">
+                <h3 class="blog-post-title">Building shortr: Short Links Without the Tracking, Ads, or Sign-up</h3>
+                <time class="blog-date" datetime="2026-09-09">September 9, 2026</time>
+                <div class="blog-body">
+                    <p>It started with a hiking route. I wanted to send a friend a trail on Skye and the link was well over a hundred characters of <code>?ref=</code>, <code>t_s=referral</code> and <code>t_cid=route_share</code> glued to the end of it. Every link I share these days looks like that. Someone else's marketing department riding along in my message. So I did what everyone does and pasted it into a URL shortener. Sign up first. Then a dashboard. Then click analytics I never asked for, an interstitial with an ad, and a short domain I don't control that will happily die or start redirecting somewhere else the day the company pivots. I got mad enough to build my own.</p>
+                    <p>The requirements were short. One URL in, one short link out, a QR code for the same link, and absolutely nothing else. No accounts, no cookies, no analytics, no ads. Links expire on their own so there is never anything to prune. And it has to run anywhere with one command, because the whole point is that you host it, not me.</p>
+                    <p>shortr is a Go 1.27 API on Fiber v3 that serves the JSON endpoints, the redirects and a plain TypeScript client bundled by esbuild. One binary, one image. The image is distroless, around 15 MB, built for amd64, arm64 and armv7, so it runs on a VPS as well as on the Raspberry Pi in the drawer. <code>docker run -d -p 8080:8080 dawidzbinski/shortr:latest</code> and you're done. The client is one page with two tabs, Shorten URL and QR code. It remembers which one you used last, the result is copied to your clipboard the moment it appears (the QR as a PNG), and the whole thing works from the keyboard.</p>
+                    <p>Privacy is the reason it exists, so it's the part I spent the most time on. Codes are 12 characters from <code>crypto/rand</code>, drawn without modulo bias, roughly 71 bits, so nobody can enumerate your links. Every response carries <code>noindex, nofollow, noarchive</code>, robots.txt disallows everything, and known crawlers get a 403 on the client and the API. Strict CSP, no inline scripts, no external requests at runtime, fonts self-hosted. The API is rate limited per client IP; the redirects never are, because a link that stops working under load is worse than no link at all.</p>
+                    <p>Storage sits behind one interface with four methods: <code>SaveURL</code>, <code>FindURL</code>, <code>Ping</code>, <code>Close</code>. Each adapter validates its own environment variables, so the core config knows nothing but the adapter's name, and adding a new backend is one file plus one case in a switch. Three ship today. <code>memory</code> is the default and keeps links in the process, perfect for trying it out and for a container you don't mind restarting. <code>redis</code> writes <code>url:&lt;code&gt;</code> with <code>SET NX EX</code> and lets Redis own the expiry, which is what you want when running more than one replica. And <code>file</code>, which is the one with a story.</p>
+                    <p>I deployed the memory adapter to my own server, shortened a handful of links, and then redeployed. The links were gone, obviously. My first instinct was to snapshot memory to a mounted file every few seconds, a backup for the in-memory map. Then I asked myself why the links had to live in RAM at all. I briefly considered SQLite, since it's basically the same problem and I didn't want to reinvent a database. But the popular driver needs cgo, which kills the static distroless build, and the pure Go port adds several megabytes to a binary that is currently tiny, all for a query language I would use on a single-key lookup. bbolt won. It's a pure Go B+tree in a single file, a lookup reads exactly one key without touching the rest of the file, every shorten is one transaction that is durable the moment it returns, and the database is opened under an exclusive lock so a second process fails fast instead of corrupting it. Mount a volume on <code>/data</code>, set <code>URL_PERSISTER=file</code>, and your links now survive restarts without a Redis next to them. While I was at it I replaced the raw JSON 404 for expired links with a proper page, because the first thing people see from your shortener should not be an error blob.</p>
+                    <p>Releases are boring on purpose. Every commit that lands on main and passes CI gets tagged, released and pushed to Docker Hub as a multi-arch image. The version comes from the commit subjects since the last tag: <code>feat</code> bumps minor, <code>breaking</code> bumps major, everything else is a patch. I never push an image by hand.</p>
+                    <p>What's next: a Postgres adapter is the obvious candidate, and the interface makes it a small job. Otherwise the plan is to keep it small. A URL shortener that grows features is how you end up with the thing I was running away from.</p>
+                    <p>It's free for noncommercial use under the PolyForm Noncommercial license. Check it out on <a href="https://github.com/Flyrell/shortr" target="_blank" rel="noopener noreferrer">GitHub</a>, read the docs at <a href="https://flyrell.github.io/shortr/" target="_blank" rel="noopener noreferrer">flyrell.github.io/shortr</a>, or grab the image from <a href="https://hub.docker.com/r/dawidzbinski/shortr" target="_blank" rel="noopener noreferrer">Docker Hub</a>.</p>
+                </div>
+            </article>
             <article class="blog-post">
                 <h3 class="blog-post-title">Building hourgit: From Post-checkout Hooks to Reflog Parsing</h3>
                 <time class="blog-date" datetime="2026-03-03">March 3, 2026</time>

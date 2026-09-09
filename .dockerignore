@@ -8,3 +8,4 @@ CLAUDE.md
 Dockerfile
 docker-compose.yml
 .dockerignore
+Taskfile.yml
